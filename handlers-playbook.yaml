@@ -1,0 +1,16 @@
+---
+ - name: handlers in ansible
+   hosts: target1
+   gather_facts: false
+   become: true
+   tasks:
+   - name: installing httpd
+     yum:
+      name: httpd
+      state: present
+     notify: start httpd
+   handlers:
+   - name: start httpd
+     service:
+      name: httpd
+      state: started

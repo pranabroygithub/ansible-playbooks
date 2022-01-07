@@ -1,0 +1,14 @@
+---
+ - hosts: target1
+   name: Exmaple for input and output
+   vars_prompt:
+    - name: user_name
+      prompt: Enter your user name 
+      private: no
+    - name: password
+      prompt: Enter your password 
+      private: yes
+   gather_facts: false
+   tasks:
+   - debug:
+      msg: "The username is: {{user_name}} and password is: {{password}}"

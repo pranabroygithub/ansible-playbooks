@@ -1,0 +1,14 @@
+---
+ - hosts: target1
+  #  gather_facts: true
+   name: get the manage os information using gather gather_facts
+   tasks:
+  #  - debug:
+  #     msg: 
+  #     - "{{ansible_distribution}}"
+  #     - "{{ansible_os_family}}"
+  #     - "{{ansible_system}}"
+   - debug:
+      msg: "{{hostvars}}"
+
+      

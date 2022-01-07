@@ -1,0 +1,17 @@
+---
+ - name: working with comparison operators
+   hosts: target1
+   gather_facts: false
+   vars:
+    x: 2
+    y: 4
+   tasks:
+    - debug:
+       msg:
+        - "x is {{x}} and y is {{y}}"
+        - "x == y   {{x == y}}"
+        - "x != y   {{x != y}}"
+        - "x > y   {{x > y}}"
+        - "x < y   {{x < y}}"
+        - "x <= y   {{x <= y}}"
+        - "x >= y   {{x >= y}}"

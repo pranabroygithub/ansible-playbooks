@@ -1,0 +1,14 @@
+---
+ - name: take input fromm file
+   hosts: target1
+   gather_facts: false
+   vars_files: 
+    - get-variable-from-yaml.yaml
+    - get-variable-from-json.json
+   tasks:
+    - name: "take inputs from  the yaml file"
+      debug: 
+       msg: "variable from yaml {{ username }}"
+    - name: "take inputs from  the json file"
+      debug: 
+       msg: "varible from json {{password}}"

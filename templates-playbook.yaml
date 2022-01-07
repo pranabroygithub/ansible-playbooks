@@ -1,0 +1,21 @@
+---
+ - name: example for templates
+   hosts: target1
+   vars:
+   - languages: ['c++', 'python', 'yaml']
+   - position: 'developer'
+   - x: 10
+   - y: 50
+   gather_facts: false
+   tasks:
+   - name: copy file and replace variables
+     template:
+      src: testfile.txt.j2
+      dest: ~/testfile.txt
+   - name: dopen the file
+     command: "cat ~/testfile.txt"
+     register: info
+
+   - name: display info 
+     debug: 
+      msg: "{{ info.stdout }}"

@@ -1,0 +1,13 @@
+---
+ - name: deligation_to and local_action
+   hosts: target1
+   gather_facts: true
+   tasks:
+   - name: display user name
+     command: users
+     register: uname
+     delegate_to: 127.0.0.1
+   - debug: "msg={{uname.stdout}}"
+   - local_action: "file  dest='~/delegate-file' state='touch'"
+     run_once: true
+     delegate_to: 127.0.0.1

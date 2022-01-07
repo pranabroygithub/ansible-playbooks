@@ -1,0 +1,22 @@
+---
+ - name: tags in ansible
+   hosts: target1
+   gather_facts: false
+   tasks:
+   - debug: msg="first tags"
+     tags:
+     - first
+     - common
+     - never
+
+   - debug: msg="second tags"
+     tags:
+     - second
+     - never
+   - debug: msg="always run third tags"
+     tags:
+     - third
+     - always
+   - debug: msg="fourth tags"
+     tags:
+     - fourth

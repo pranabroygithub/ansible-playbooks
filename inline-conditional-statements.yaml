@@ -1,0 +1,13 @@
+---
+ - name: inline conditional statement(if else)
+   hosts: target1
+   gather_facts: false
+   vars:
+    x: 5
+    y: 10
+    larger: "{{ x if x>y else y }}"
+   tasks:
+   - debug:
+      msg:
+       - "larger number is {{larger}}"
+       - "smaller numbe is {{ x if x<y else y }}"

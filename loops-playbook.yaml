@@ -1,0 +1,13 @@
+---
+ - name: memnership operators
+   hosts: target1
+   gather_facts: false
+   become: true
+   tasks:
+   - name: "installing packages"
+     yum:
+      name: "{{item}}"
+      state: absent
+     loop:
+      - git
+      - httpd

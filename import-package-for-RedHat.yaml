@@ -1,0 +1,5 @@
+---
+- name: check the user of the machine
+  command: users
+  register: username
+- debug: var=username

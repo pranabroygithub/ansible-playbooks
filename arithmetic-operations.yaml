@@ -1,0 +1,13 @@
+---
+ - hosts: target1
+   gather_facts: false
+   name: arithmetic operations in ansible
+   vars:
+    - x : 5
+    - y : "{{x+5}}"
+   tasks:
+    - debug:
+       msg:
+        - "x = {{x}}"
+        - "y = {{y}}"
+        - "x+y = {{x + y|int}}"

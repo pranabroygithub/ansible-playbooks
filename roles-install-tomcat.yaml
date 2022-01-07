@@ -1,0 +1,8 @@
+---
+ - name: install tomcat server and configure
+   hosts: target1
+   gather_facts: false
+   become: true
+   roles:
+   - download-configure-java
+   - downloading-configuring-tomcat

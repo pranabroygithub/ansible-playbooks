@@ -1,0 +1,25 @@
+---
+ - name: error handling in ansible
+   gather_facts: false
+   hosts: target1
+   tasks:
+   - name: wrong path create error
+     command: "ls /homee"
+     ignore_errors: true
+
+   - name: deliberately create error using failed_when
+     command: "ls /home"
+     register: out
+     failed_when: out.rc==0
+
+   - name: deliberately create error using fail
+     command: "ls /home"
+     register: out
+   - fail:
+      msg: "failed because rc=0"
+     when: out.rc==0
+
+   - name: list tmp directory
+     command: "ls /tmp"
+     register: out
+   - debug: var=out

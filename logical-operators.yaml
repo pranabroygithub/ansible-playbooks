@@ -1,0 +1,13 @@
+---
+ - name: logical operators (and or not)
+   hosts: target1
+   vars:
+    x: 10
+    y: 20
+    z: 30
+   tasks:
+    - debug:
+       msg:
+       - "x<y or x>z {{x<y or x<z}}"
+       - "y>x and y<z {{y>x and y<z}}"
+       - "not z<x {{not z<x}}"

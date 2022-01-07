@@ -1,0 +1,17 @@
+---
+ - name: block and rescue in ansible
+   hosts: target1
+   gather_facts: false
+   tasks:
+    - block:
+       - name: list out home directory
+         command: "ls /home"
+         register: out1
+       - debug: msg="{{out1}}"        
+
+      rescue:
+       - debug:
+          msg: "path not find, check the path again."
+      always:
+       - debug: msg="playbook ended here"
+      

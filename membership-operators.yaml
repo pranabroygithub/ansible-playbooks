@@ -1,0 +1,13 @@
+---
+ - name: memnership operators
+   hosts: target1
+   gather_facts: false
+   vars:
+    x: [1,4,7,8]
+    y: 4
+
+   tasks:
+   - debug:
+      msg:
+       - "{{y}} in {{x}} {{y in x}}"
+       - "{{y}} not in {{x}} {{y not in x}}"

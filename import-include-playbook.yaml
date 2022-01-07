@@ -1,0 +1,14 @@
+---
+ - name: include and import tasks from other yaml files
+   hosts: target1
+   gather_facts: true
+   tasks:
+   - name: check the user if the os is redhat
+     import_tasks: "import-package-for-RedHat.yaml"
+    #  - "get-variable-from-yaml.yaml"
+     when: ansible_os_family=='RedHat'
+   - name: installing packages using include
+     include_tasks: "import-package-for-{{ansible_os_family}}.yaml"
+   - name: include varibles from other files
+     include_vars: "include-import-vars.yaml"
+   - debug: var="pranab"
