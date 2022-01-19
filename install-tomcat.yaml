@@ -11,7 +11,7 @@
     tomcat_port_number: 8090
    tasks:
    - name: updating repositories
-     command: "sudo apt update"
+     command: "yum update"
 
 
    - name: installing required java
