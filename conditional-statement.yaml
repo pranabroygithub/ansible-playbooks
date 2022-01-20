@@ -3,9 +3,9 @@
    hosts: target1
    become: true
    tasks:
-    - name: installing httpd using yum
+    - name: installing git using yum
       yum:
-       name: httpd
+       name: git
        state: present
       when: ansible_distribution != "Ubuntu"
     - name: installing apache2 using apt
