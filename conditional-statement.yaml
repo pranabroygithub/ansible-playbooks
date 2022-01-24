@@ -1,6 +1,6 @@
 ---
  - name: conditional statement in ansible
-   hosts: target1
+   hosts: pranab-ansible-ec2
    become: true
    tasks:
     - name: installing git using yum
