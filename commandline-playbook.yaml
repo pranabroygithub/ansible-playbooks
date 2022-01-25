@@ -1,6 +1,6 @@
 ---
  - name: Install uninstall package
-   hosts: target1
+   hosts: pranab_ansible_ec2
    gather_facts: false
    become: true
    tasks: 
