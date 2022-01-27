@@ -17,7 +17,9 @@
      name: /usr/local/mysql80-community-release-el6-3.noarch.rpm
      state: present
   - name: disabling default mysql module
-    command: sudo yum module disable mysql
+    command: yum module disable mysql
+
+
   - name: installing mysql-community-server
     yum:
      name: mysql-community-server
