@@ -1,6 +1,6 @@
 ---
 - name: installing mysql server
-  hosts: target
+  hosts: pranab_ansible_ec2
   gather_facts: false
   become: true
   tasks:
