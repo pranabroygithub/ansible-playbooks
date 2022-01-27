@@ -1,11 +1,11 @@
 ---
  - name: conditional statement in ansible
-   hosts: target1
+   hosts: pranab_ansible_ec2
    become: true
    tasks:
-    - name: installing httpd using yum
+    - name: installing git using yum
       yum:
-       name: httpd
+       name: git
        state: present
       when: ansible_distribution != "Ubuntu"
     - name: installing apache2 using apt

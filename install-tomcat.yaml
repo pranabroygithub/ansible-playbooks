@@ -10,21 +10,20 @@
     tomcat_url: "https://dlcdn.apache.org/tomcat/tomcat-{{tomcat_version.split('.')[0]}}/v{{tomcat_version}}/bin/apache-tomcat-{{tomcat_version}}.zip"
     tomcat_port_number: 8090
    tasks:
-  #  - name: updating repositories
-  #    yum:
-  #     name: "*"
-  #     state: latest
+   - name: updating repositories
+     command: "yum update -y"
 
-  #  - name: installing required java
-  #    yum:
-  #     name: "{{required_java_version}}"
-  #     state: present
 
-  #  - name: change to the new java path
-  #    alternatives:
-  #     name: java
-  #     link: /usr/bin/java
-  #     path: /usr/lib/jvm/{{set_java_version}}/bin/java
+   - name: installing required java
+     yum:
+      name: "{{required_java_version}}"
+      state: present
+
+   - name: change to the new java path
+     alternatives:
+      name: java
+      link: /usr/bin/java
+      path: /usr/lib/jvm/{{set_java_version}}/bin/java
       
    - name: Downloading tomcat
      get_url:
