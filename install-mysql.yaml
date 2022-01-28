@@ -8,16 +8,16 @@
   #   yum: 
   #    name: "*"
   #    state: latest
+  
   - name: Downloading the package
     get_url:
      url: https://repo.mysql.com/mysql80-community-release-el8-3.noarch.rpm
      dest: /usr/local
   - name: installing the downloaded packages
-    yum:
-     name: /usr/local/mysql80-community-release-el8-3.noarch.rpm
-     state: present
+    command: yum install /usr/local/mysql80-community-release-el8-3.noarch.rpm -y
+
   - name: disabling default mysql module
-    command: yum module disable mysql
+    command: yum module disable mysql -y 
 
 
   - name: installing mysql-community-server
@@ -28,3 +28,42 @@
     service:
      name: mysqld
      state: started
+
+  - name: install python3
+    yum:
+     name: python3
+     state: present
+  
+  - name: installing mysql-community-client-plugins
+    yum:
+     name: mysql-community-client-plugins
+     state: present
+
+
+  - name: installing PyMysql
+    pip:
+     name: pymysql
+     state: present
+
+  - name: installing PyMysql
+    yum:
+     name: python2-PyMySQL
+     state: present
+
+  - name: copy script to reset the root password for mysql
+    copy:
+      src: reset_mysql_script.sh
+      dest: reset_mysql_script.sh
+
+  - name: run the script copied
+    shell: bash reset_mysql_script.sh
+
+
+  # - name: Set MySQL root Password
+  #   mysql_user:
+  #     login_host: 'localhost'
+  #     login_user: 'root'
+  #     login_password: 'La,F8+AgID<M'  
+  #     name: 'root'
+  #     password: '!bM@1997'
+
