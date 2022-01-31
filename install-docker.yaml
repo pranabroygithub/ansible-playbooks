@@ -1,6 +1,6 @@
 ---
  - name: Installing docker in ubuntu server
-   hosts: pranab_ansible_ec2
+   hosts: pranab_ubuntu
    gather_facts: false
    become: true
    tasks:
