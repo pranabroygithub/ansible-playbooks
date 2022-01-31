@@ -4,15 +4,15 @@
    gather_facts: false
    become: true
    tasks:
-    # - name: Download the docker script
-    #   shell: curl -fsSL https://get.docker.com -o get-docker.sh
+    - name: Download the docker script
+      shell: curl -fsSL https://get.docker.com -o get-docker.sh
     
-    # - name: Installing the script downloaded
-    #   shell : bash get-docker.sh
+    - name: Installing the script downloaded
+      shell : bash get-docker.sh
     - block:
       - name: pulling and running the mongo image
         shell: docker run -d --name my-mongo-container-latest mongo
-        
+
       rescue:
         - name: starting the container
           shell: docker start my-mongo-container-latest
