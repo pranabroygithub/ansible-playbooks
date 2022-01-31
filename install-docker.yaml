@@ -1,0 +1,35 @@
+---
+ - name: Installing docker in ubuntu server
+   hosts: pranab_ansible_ec2
+   gather_facts: false
+   become: true
+   tasks:
+    # - name: Download the docker script
+    #   shell: curl -fsSL https://get.docker.com -o get-docker.sh
+    
+    # - name: Installing the script downloaded
+    #   shell : bash get-docker.sh
+    - block:
+      - name: pulling and running the mongo image
+        shell: docker run -d --name my-mongo-container-latest mongo
+        
+      rescue:
+        - name: starting the container
+          shell: docker start my-mongo-container-latest
+    
+    - name: printing available docker my-mongo-container-latest
+      shell: docker ps
+      register: dockerps
+
+    - name: printing the putput of previous command
+      debug: msg="{{dockerps.stdout}}"
+
+    - name: logging into the container and printing files
+      shell: printf "ls -lrt" | docker exec -i my-mongo-container-latest /bin/bash > logfile.log
+    
+    - name: opening the file
+      shell: cat logfile.log
+      register: output
+
+    - name:  display the output of the log file
+      debug: msg="{{output.stdout}}" 

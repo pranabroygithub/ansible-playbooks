@@ -4,59 +4,58 @@
   gather_facts: false
   become: true
   tasks:
-  - name: updating all packages
-    yum: 
-     name: "*"
-     state: latest
+  # - name: updating all packages
+  #   yum: 
+  #    name: "*"
+  #    state: latest
 
-  - name: Downloading the package
-    get_url:
-     url: https://repo.mysql.com/mysql80-community-release-el8-3.noarch.rpm
-     dest: /usr/local
-  - name: installing the downloaded packages
-    command: yum install /usr/local/mysql80-community-release-el8-3.noarch.rpm -y
+  # - name: Downloading the package
+  #   get_url:
+  #    url: https://repo.mysql.com/mysql80-community-release-el8-3.noarch.rpm
+  #    dest: /usr/local
+  # - name: installing the downloaded packages
+  #   command: yum install /usr/local/mysql80-community-release-el8-3.noarch.rpm -y
 
-  - name: disabling default mysql module
-    command: yum module disable mysql -y 
+  # - name: disabling default mysql module
+  #   command: yum module disable mysql -y 
 
 
-  - name: installing mysql-community-server
-    yum:
-     name: mysql-community-server
-     state: present
-  - name: start the mysql mysql-server
-    service:
-     name: mysqld
-     state: started
+  # - name: installing mysql-community-server
+  #   yum:
+  #    name: mysql-community-server
+  #    state: present
+  # - name: start the mysql mysql-server
+  #   service:
+  #    name: mysqld
+  #    state: started
 
-  - name: install python3
-    yum:
-     name: python3
-     state: present
+  # - name: install python3
+  #   yum:
+  #    name: python3
+  #    state: present
   
-  - name: installing mysql-community-client-plugins
-    yum:
-     name: mysql-community-client-plugins
-     state: present
+  # - name: installing mysql-community-client-plugins
+  #   yum:
+  #    name: mysql-community-client-plugins
+  #    state: present
 
-  - name: installing PyMysql
-    pip:
-     name: pymysql
-     state: present
+  # - name: installing PyMysql
+  #   pip:
+  #    name: pymysql
+  #    state: present
 
-  - name: installing PyMysql
-    yum:
-     name: python2-PyMySQL
-     state: present
+  # - name: installing PyMysql
+  #   yum:
+  #    name: python2-PyMySQL
+  #    state: present
 
-  - name: copy script to reset the root password for mysql
-    copy:
-      src: reset_mysql_script.sh
-      dest: reset_mysql_script.sh
+  # - name: copy script to reset the root password for mysql
+  #   copy:
+  #     src: reset_mysql_script.sh
+  #     dest: reset_mysql_script.sh
 
-  - name: run the script copied
-    shell: bash reset_mysql_script.sh
-
+  # - name: run the script copied
+  #   shell: bash reset_mysql_script.sh
 
   - name: create new user in mysql
     mysql_user:
@@ -68,27 +67,34 @@
       priv: '*.*:ALL'
       state: present
 
-
-  - name: Create a new database with name 'emp_info'
-    community.mysql.mysql_db:
-      login_host: 'localhost'
-      login_user: 'pranab'
-      login_password: '!bM@1997'  
-      name: emp_info
-      state: present
-
-  - name: create table and insert values in it
-    mysql_query:
-      login_host: 'localhost'
-      login_user: 'pranab'
-      login_password: '!bM@1997'  
-      login_db: emp_info
-      query:
-      - SHOW DATABASES
-      - CREATE TABLE emp_data (id VARCHAR(100) NOT NULL, name VARCHAR(100) NOT NULL)
-      - INSERT INTO emp_data (id, name) VALUES ('gsc-30802', 'Pranab Kumar Roy')
-      - INSERT INTO emp_data (id, name) VALUES ('gsc-30803', 'Norodeb Roy')
-    register: output
+  - block:
+      - name: Create a new database with name 'emp_info'
+        community.mysql.mysql_db:
+          login_host: 'localhost'
+          login_user: 'pranab'
+          login_password: '!bM@1997'  
+          name: emp_info
+          state: present
+        ignore_errors: true
+    rescue:
+      - debug: msg="Database is not created, may exist already"
   
+  - block:
+      - name: create table and insert values in it
+        mysql_query:
+          login_host: 'localhost'
+          login_user: 'pranab'
+          login_password: '!bM@1997'  
+          login_db: emp_info
+          query:
+          - SHOW DATABASES
+          - CREATE TABLE emp_data (id VARCHAR(100) NOT NULL, name VARCHAR(100) NOT NULL)
+          - INSERT INTO emp_data (id, name) VALUES ('gsc-30802', 'Pranab Kumar Roy')
+          - INSERT INTO emp_data (id, name) VALUES ('gsc-30803', 'Norodeb Roy')
+        register: output
+        ignore_errors: true
+    rescue:
+      - debug: msg="Table not created, may exist already"
+
   - name: show output
     debug: msg={{ output }}
