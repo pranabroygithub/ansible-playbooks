@@ -1,6 +1,6 @@
 ---
  - name: block and rescue in ansible
-   hosts: target1
+   hosts: pranab_ansible_ec2
    gather_facts: false
    tasks:
     - block:

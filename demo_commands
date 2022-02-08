@@ -1,0 +1,2 @@
+ansible pranab_ansible_ec2 -m ping -i inventoryfile
+ansible pranab_ansible_ec2 -m file -a "path=~/demo.txt state=touch mode='0777' " -i inventoryfile

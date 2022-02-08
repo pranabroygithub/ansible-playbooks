@@ -1,14 +1,19 @@
 ---
- - hosts: target1
-  #  gather_facts: true
+ - hosts: pranab_ansible_ec2
+   # gather_facts: false
    name: get the manage os information using gather gather_facts
+   vars:
+   - user: pranab
+   - company: gslab
    tasks:
-  #  - debug:
-  #     msg: 
-  #     - "{{ansible_distribution}}"
-  #     - "{{ansible_os_family}}"
-  #     - "{{ansible_system}}"
    - debug:
-      msg: "{{hostvars}}"
+      msg: 
+      - "{{ansible_distribution}}"
+      - "{{ansible_os_family}}"
+      - "{{ansible_system}}"
+      - "{{user}}"
+      - "{{company}}"
+   # - debug:
+   #    msg: "{{hostvars}}"
 
       

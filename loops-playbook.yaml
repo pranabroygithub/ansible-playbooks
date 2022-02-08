@@ -1,13 +1,15 @@
 ---
  - name: memnership operators
-   hosts: target1
+   hosts: pranab_ansible_ec2
    gather_facts: false
    become: true
    tasks:
-   - name: "installing packages"
-     yum:
-      name: "{{item}}"
-      state: absent
-     loop:
+    - name: "get info about pakages" 
+      command: " {{ item }} --version"
+      loop:
       - git
       - httpd
+      register: out
+
+    - name: "display the output"
+      debug: msg="{{ out }}"
